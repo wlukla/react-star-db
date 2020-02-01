@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SwapiSevice from '../../services/swapi-service';
 
 import './person-details.css';
+import Loader from '../loader/loader';
 
 
 class PersonDetails extends React.Component {
@@ -34,6 +35,8 @@ class PersonDetails extends React.Component {
       return;
     }
 
+    this.setState({ person: null });
+
     this.swapiService
       .getPerson(personId)
       .then((person) => this.setState({ person }));
@@ -41,39 +44,19 @@ class PersonDetails extends React.Component {
 
   render() {
     const { person } = this.state;
+    const { personId } = this.props;
 
-    if (!person) {
-      return <span>Select something from the list</span>;
-    }
+    const loader = personId && !person ? <Loader /> : null;
+    const message = !personId && !person
+      ? <span>Select something from the list</span>
+      : null;
 
-    const {
-      id, name, gender, birthYear, eyeColor,
-    } = person;
-
+    const content = person ? <PresonContent person={person} /> : null;
     return (
       <div className="jumbotron d-flex p-4 mt-0">
-        <img
-          className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
-          alt="person"
-        />
-        <div>
-          <h3>{name}</h3>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="mr-2">Gender</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="mr-2">Birth year</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="mr-2">Eye color</span>
-              <span>{eyeColor}</span>
-            </li>
-          </ul>
-        </div>
+        {loader}
+        {message}
+        {content}
       </div>
     );
   }
@@ -85,6 +68,45 @@ PersonDetails.propTypes = {
 
 PersonDetails.defaultProps = {
   personId: null,
+};
+
+const PresonContent = (props) => {
+  const {
+    person: {
+      id, name, gender, birthYear, eyeColor,
+    },
+  } = props;
+
+  return (
+    <>
+      <img
+        className="person-image"
+        src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+        alt="person"
+      />
+      <div>
+        <h3>{name}</h3>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">
+            <span className="mr-2">Gender</span>
+            <span>{gender}</span>
+          </li>
+          <li className="list-group-item">
+            <span className="mr-2">Birth year</span>
+            <span>{birthYear}</span>
+          </li>
+          <li className="list-group-item">
+            <span className="mr-2">Eye color</span>
+            <span>{eyeColor}</span>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+PresonContent.propTypes = {
+  person: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default PersonDetails;
