@@ -1,10 +1,10 @@
 import React from 'react';
-import ItemList from '../item-list';
 import ItemDetails from '../item-details';
 import SwapiService from '../../services/swapi-service';
 import Row from '../row';
 import ErrorBoundary from '../error-boundary';
 import Record from '../record';
+import { PersonList } from '../sw-components/item-lists';
 
 class PeoplePage extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class PeoplePage extends React.Component {
     const { selectedPerson } = this.state;
 
     const itemList = (
-      <ItemList
+      <PersonList
         onItemSelected={this.onPersonSelected}
         getData={this.swapiService.getAllPeople}
         renderItem={({ name, birthYear }) => `${name} (${birthYear})`}

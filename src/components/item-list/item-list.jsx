@@ -2,8 +2,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
-import SwapiService from '../../services/swapi-service';
-import withData from '../hoc-helpers/with-data';
 
 const ItemList = (props) => {
   const { onItemSelected, renderItem, data } = props;
@@ -36,7 +34,4 @@ ItemList.propTypes = {
   data: PropTypes.instanceOf(Array).isRequired,
 };
 
-const { getAllPeople } = new SwapiService();
-
-
-export default withData(ItemList, getAllPeople);
+export default ItemList;

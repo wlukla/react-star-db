@@ -5,9 +5,7 @@ import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
-import Row from '../row';
-import ItemDetails from '../item-details';
-import Record from '../record';
+import { PlanetDetails, PlanetList, StarshipDetails, PersonDetails } from '../sw-components';
 
 class App extends React.Component {
   constructor(props) {
@@ -32,8 +30,12 @@ class App extends React.Component {
     return (
       <div className="container">
         <Header />
-        <RandomPlanet />
-        <PeoplePage />
+        {/* <RandomPlanet />
+        <PeoplePage /> */}
+
+        <PlanetDetails itemId={3} />
+        <StarshipDetails itemId={5} />
+        <PersonDetails itemId={3} />
       </div>
     );
   }
