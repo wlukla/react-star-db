@@ -4,6 +4,14 @@ class SwapiService {
   constructor() {
     this.apiBase = 'https://swapi.co/api';
 
+    this.getResource = this.getResource.bind(this);
+    this.getAllPeople = this.getAllPeople.bind(this);
+    this.getAllPlanets = this.getAllPlanets.bind(this);
+    this.getAllStarships = this.getAllStarships.bind(this);
+    this.getPerson = this.getPerson.bind(this);
+    this.getPlanet = this.getPlanet.bind(this);
+    this.getStarship = this.getStarship.bind(this);
+    this._extractId = this._extractId.bind(this);
     this._transformPlanetData = this._transformPlanetData.bind(this);
     this._transformPersonData = this._transformPersonData.bind(this);
     this._transformStarshipData = this._transformStarshipData.bind(this);

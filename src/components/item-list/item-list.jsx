@@ -2,46 +2,49 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
-import SwapiSevice from '../../services/swapi-service';
 import Loader from '../loader/loader';
 
 class ItemList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.swapiService = new SwapiSevice();
     this.state = {
-      peopleList: null,
+      itemList: null,
     };
   }
 
   componentDidMount() {
-    this.swapiService
-      .getAllPeople()
-      .then((peopleList) => this.setState({ peopleList }));
+    const { getData } = this.props;
+    getData()
+      .then((itemList) => this.setState({ itemList }));
   }
 
   renderItems(arr) {
-    const { onItemSelected } = this.props;
-    return arr.map(({ id, name }) => (
-      <li
-        className="list-group-item list-group-item-action"
-        key={id}
-        onClick={() => onItemSelected(id)}
-      >
-        {name}
-      </li>
-    ));
+    const { onItemSelected, renderItem } = this.props;
+
+    return arr.map((item) => {
+      const label = renderItem(item);
+      const { id } = item;
+      return (
+        <li
+          className="list-group-item list-group-item-action"
+          key={id}
+          onClick={() => onItemSelected(id)}
+        >
+          {label}
+        </li>
+      );
+    });
   }
 
   render() {
-    const { peopleList } = this.state;
+    const { itemList } = this.state;
 
-    const loader = !peopleList ? <Loader /> : null;
-    const list = peopleList ? this.renderItems(peopleList) : null;
+    const loader = !itemList ? <Loader /> : null;
+    const list = itemList ? this.renderItems(itemList) : null;
 
     return (
-      <ul className="list-group">
+      <ul className="list-group mb-5">
         {loader}
         {list}
       </ul>
@@ -51,6 +54,8 @@ class ItemList extends React.Component {
 
 ItemList.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
+  renderItem: PropTypes.func.isRequired,
 };
 
 export default ItemList;
