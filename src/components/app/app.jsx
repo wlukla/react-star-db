@@ -4,15 +4,21 @@ import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ItemList from '../item-list';
 import PersonDetails from '../person-details';
+import ErrorIndicator from '../error-indicator';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedPerson: null,
+      hasError: false,
     };
 
     this.onPersonSelected = this.onPersonSelected.bind(this);
+  }
+
+  componentDidCatch() {
+    this.setState({ hasError: true });
   }
 
   onPersonSelected(id) {
@@ -20,7 +26,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { selectedPerson } = this.state;
+    const { selectedPerson, hasError } = this.state;
+
+    if (hasError) {
+      return <ErrorIndicator />;
+    }
+
     return (
       <div className="container">
         <Header />

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SwapiSevice from '../../services/swapi-service';
+import SwapiService from '../../services/swapi-service';
 
 import './person-details.css';
 import Loader from '../loader/loader';
@@ -14,7 +14,7 @@ class PersonDetails extends React.Component {
       person: null,
     };
 
-    this.swapiService = new SwapiSevice();
+    this.swapiService = new SwapiService();
     this.updatePerson = this.updatePerson.bind(this);
   }
 
