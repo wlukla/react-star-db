@@ -1,9 +1,10 @@
 import React from 'react';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import ItemDetails from '../item-details';
 import SwapiService from '../../services/swapi-service';
 import Row from '../row';
 import ErrorBoundary from '../error-boundary';
+import Record from '../record';
 
 class PeoplePage extends React.Component {
   constructor(props) {
@@ -28,13 +29,21 @@ class PeoplePage extends React.Component {
       <ItemList
         onItemSelected={this.onPersonSelected}
         getData={this.swapiService.getAllPeople}
-        renderItem={({ name, gender, birthYear }) => `${name}, ${gender}, ${birthYear}`}
+        renderItem={({ name, birthYear }) => `${name} (${birthYear})`}
       />
     );
 
     const personDetails = (
       <ErrorBoundary>
-        <PersonDetails personId={selectedPerson} />
+        <ItemDetails
+          itemId={selectedPerson}
+          getData={this.swapiService.getPerson}
+          getImageURL={this.swapiService.getPersonImage}
+        >
+          <Record label="Gender" field="gender" />
+          <Record label="Birth year" field="birthYear" />
+          <Record label="Eye color" field="eyeColor" />
+        </ItemDetails>
       </ErrorBoundary>
     );
 

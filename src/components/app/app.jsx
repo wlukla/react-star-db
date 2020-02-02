@@ -5,6 +5,9 @@ import RandomPlanet from '../random-planet';
 import PeoplePage from '../people-page';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
+import Row from '../row';
+import ItemDetails from '../item-details';
+import Record from '../record';
 
 class App extends React.Component {
   constructor(props) {

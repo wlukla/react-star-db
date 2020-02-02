@@ -1,6 +1,6 @@
 .person-image {
   width: 10rem;
-  height: auto;
+  height: 100%;
   margin-right: 2rem;
   border-radius: 10px;
 }

@@ -13,8 +13,8 @@ const Row = ({ list, details }) => (
 );
 
 Row.propTypes = {
-  list: PropTypes.instanceOf(Array).isRequired,
-  details: PropTypes.instanceOf(Array).isRequired,
+  list: PropTypes.instanceOf(Object).isRequired,
+  details: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Row;

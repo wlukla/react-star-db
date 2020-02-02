@@ -14,6 +14,7 @@ class RandomPlanet extends React.Component {
 
     this.state = {
       planet: {},
+      image: null,
       loading: true,
       error: false,
     };
@@ -33,7 +34,11 @@ class RandomPlanet extends React.Component {
   }
 
   onPlanetLoaded(planet) {
-    this.setState({ planet, loading: false });
+    this.setState({
+      planet,
+      loading: false,
+      image: this.swapiService.getPlanetImage(planet.id)
+    });
   }
 
   onError() {
@@ -52,13 +57,15 @@ class RandomPlanet extends React.Component {
   }
 
   render() {
-    const { planet, loading, error } = this.state;
+    const {
+      planet, loading, error, image,
+    } = this.state;
 
     const hasData = !(loading || error);
 
     const errorMessage = error ? <ErrorIndicator /> : null;
     const loader = loading ? <Loader /> : null;
-    const content = hasData ? <PlanetView planet={planet} /> : null;
+    const content = hasData ? <PlanetView planet={planet} image={image} /> : null;
 
     return (
       <div className="jumbotron d-flex p-4">
@@ -71,40 +78,3 @@ class RandomPlanet extends React.Component {
 }
 
 export default RandomPlanet;
-
-const PlanetView = ({ planet }) => {
-  const {
-    id, name, population, rotationPeriod, diameter,
-  } = planet;
-
-  return (
-    <>
-      <img
-        className="planet-image"
-        src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
-        alt="planet"
-      />
-      <div>
-        <h3>{name}</h3>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <span className="mr-2">Population</span>
-            <span>{population}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="mr-2">Rotation period</span>
-            <span>{rotationPeriod}</span>
-          </li>
-          <li className="list-group-item">
-            <span className="mr-2">Diameter</span>
-            <span>{diameter}</span>
-          </li>
-        </ul>
-      </div>
-    </>
-  );
-};
-
-PlanetView.propTypes = {
-  planet: PropTypes.instanceOf(Object).isRequired,
-};
