@@ -2,60 +2,41 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Loader from '../loader/loader';
+import SwapiService from '../../services/swapi-service';
+import withData from '../hoc-helpers/with-data';
 
-class ItemList extends React.Component {
-  constructor(props) {
-    super(props);
+const ItemList = (props) => {
+  const { onItemSelected, renderItem, data } = props;
 
-    this.state = {
-      itemList: null,
-    };
-  }
-
-  componentDidMount() {
-    const { getData } = this.props;
-    getData()
-      .then((itemList) => this.setState({ itemList }));
-  }
-
-  renderItems(arr) {
-    const { onItemSelected, renderItem } = this.props;
-
-    return arr.map((item) => {
-      const label = renderItem(item);
-      const { id } = item;
-      return (
-        <li
-          className="list-group-item list-group-item-action"
-          key={id}
-          onClick={() => onItemSelected(id)}
-        >
-          {label}
-        </li>
-      );
-    });
-  }
-
-  render() {
-    const { itemList } = this.state;
-
-    const loader = !itemList ? <Loader /> : null;
-    const list = itemList ? this.renderItems(itemList) : null;
-
+  const dataList = data.map((item) => {
+    const label = renderItem(item);
+    const { id } = item;
     return (
-      <ul className="list-group mb-5">
-        {loader}
-        {list}
-      </ul>
+      <li
+        className="list-group-item list-group-item-action"
+        key={id}
+        onClick={() => onItemSelected(id)}
+      >
+        {label}
+      </li>
     );
-  }
-}
+  });
+
+
+  return (
+    <ul className="list-group mb-5">
+      {dataList}
+    </ul>
+  );
+};
 
 ItemList.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
-  getData: PropTypes.func.isRequired,
   renderItem: PropTypes.func.isRequired,
+  data: PropTypes.instanceOf(Array).isRequired,
 };
 
-export default ItemList;
+const { getAllPeople } = new SwapiService();
+
+
+export default withData(ItemList, getAllPeople);
