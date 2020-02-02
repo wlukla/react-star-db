@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SwapiService from '../../services/swapi-service';
 
 import './random-planet.css';
 import Loader from '../loader';
 import ErrorIndicator from '../error-indicator';
+import PlanetView from '../planet-view';
 
 class RandomPlanet extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class RandomPlanet extends React.Component {
     this.setState({
       planet,
       loading: false,
-      image: this.swapiService.getPlanetImage(planet.id)
+      image: this.swapiService.getPlanetImage(planet.id),
     });
   }
 
