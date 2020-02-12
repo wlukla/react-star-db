@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Loader from '../loader/loader';
 
-const withData = (View, getData) => (
+const withData = (View) => (
   class extends React.Component {
     constructor(props) {
       super(props);
@@ -10,9 +11,14 @@ const withData = (View, getData) => (
       this.state = {
         data: null,
       };
+
+      this.propTypes = {
+        getData: PropTypes.func.isRequired,
+      };
     }
 
     componentDidMount() {
+      const { getData } = this.props;
       getData()
         .then((data) => this.setState({ data }));
     }

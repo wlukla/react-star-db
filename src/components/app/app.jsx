@@ -1,11 +1,12 @@
 import React from 'react';
-
 import Header from '../header';
-// import RandomPlanet from '../random-planet';
-// import PeoplePage from '../people-page';
 import ErrorBoundary from '../error-boundary';
 import SwapiService from '../../services/swapi-service';
-import { PersonList, StarshipList, PersonDetails } from '../sw-components';
+import RandomPlanet from '../random-planet';
+import Row from '../row';
+import {
+  PersonList, StarshipList, PersonDetails, PlanetDetails, StarshipDetails, PlanetList,
+} from '../sw-components';
 
 import { SwapiServiceProvider } from '../swapi-service-context';
 
@@ -22,10 +23,23 @@ class App extends React.Component {
         <SwapiServiceProvider value={this.swapiService}>
           <div className="container">
             <Header />
-            <PersonDetails itemId={4} />
-            <PersonList />
 
-            <StarshipList />
+            <RandomPlanet />
+
+            <Row
+              list={<PersonList />}
+              details={<PersonDetails itemId={4} />}
+            />
+
+            <Row
+              list={<PlanetList />}
+              details={<PlanetDetails itemId={5} />}
+            />
+
+            <Row
+              list={<StarshipList />}
+              details={<StarshipDetails itemId={5} />}
+            />
           </div>
         </SwapiServiceProvider>
       </ErrorBoundary>
