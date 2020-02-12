@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Header from '../header';
-import RandomPlanet from '../random-planet';
-import PeoplePage from '../people-page';
+// import RandomPlanet from '../random-planet';
+// import PeoplePage from '../people-page';
 import ErrorIndicator from '../error-indicator';
 import SwapiService from '../../services/swapi-service';
-import { PlanetDetails, PlanetList, StarshipDetails, PersonDetails } from '../sw-components';
+import { PersonList, StarshipList, PersonDetails } from '../sw-components';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,12 +30,10 @@ class App extends React.Component {
     return (
       <div className="container">
         <Header />
-        {/* <RandomPlanet />
-        <PeoplePage /> */}
 
-        <PlanetDetails itemId={3} />
-        <StarshipDetails itemId={5} />
-        <PersonDetails itemId={3} />
+        <PersonList />
+
+        <StarshipList />
       </div>
     );
   }

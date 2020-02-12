@@ -1,18 +1,56 @@
+/* eslint-disable react/jsx-props-no-spreading */
+import React from 'react';
+import PropTypes from 'prop-types';
 import ItemList from '../item-list';
-import withData from '../hoc-helpers/with-data';
+import withData from '../hoc-helpers';
 import SwapiService from '../../services/swapi-service';
 
-const swapi = new SwapiService();
+const swapiService = new SwapiService();
 
 const {
   getAllPeople,
-  getAllPlanets,
   getAllStarships,
-} = swapi;
+  getAllPlanets,
+} = swapiService;
 
-const PersonList = () => withData(ItemList, getAllPeople);
-const PlanetList = () => withData(ItemList, getAllPlanets);
-const StarshipList = () => withData(ItemList, getAllStarships);
+const withChildFunction = (Wrapped, fn) => (
+  (props) => (
+    <Wrapped {...props}>
+      {fn}
+    </Wrapped>
+  )
+);
+
+const renderName = ({ name }) => <span>{name}</span>;
+const renderModelAndName = ({ model, name }) => (
+  <span>
+    {`${name} (${model})`}
+  </span>
+);
+
+const PersonList = withData(
+  withChildFunction(ItemList, renderName),
+  getAllPeople,
+);
+
+const PlanetList = withData(
+  withChildFunction(ItemList, renderName),
+  getAllPlanets,
+);
+
+const StarshipList = withData(
+  withChildFunction(ItemList, renderModelAndName),
+  getAllStarships,
+);
+
+renderName.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
+renderModelAndName.propTypes = {
+  name: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+};
 
 export {
   PersonList,

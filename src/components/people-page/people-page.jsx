@@ -28,7 +28,7 @@ class PeoplePage extends React.Component {
     const itemList = (
       <PersonList
         onItemSelected={this.onPersonSelected}
-        getData={this.swapiService.getAllPeople}
+        data={this.swapiService.getAllPeople()}
         renderItem={({ name, birthYear }) => `${name} (${birthYear})`}
       />
     );

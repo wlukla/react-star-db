@@ -3,15 +3,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ItemList = (props) => {
-  const { onItemSelected, renderItem, data } = props;
 
-  const dataList = data.map((item) => {
-    const label = renderItem(item);
+const ItemList = (props) => {
+  const { data, onItemSelected, children: renderFunc } = props;
+
+  const items = data.map((item) => {
     const { id } = item;
+    const label = renderFunc(item);
+
     return (
       <li
-        className="list-group-item list-group-item-action"
+        className="list-group-item"
         key={id}
         onClick={() => onItemSelected(id)}
       >
@@ -22,16 +24,16 @@ const ItemList = (props) => {
 
 
   return (
-    <ul className="list-group mb-5">
-      {dataList}
+    <ul className="item-list list-group">
+      {items}
     </ul>
   );
 };
 
 ItemList.propTypes = {
+  data: PropTypes.instanceOf(Object).isRequired,
   onItemSelected: PropTypes.func.isRequired,
-  renderItem: PropTypes.func.isRequired,
-  data: PropTypes.instanceOf(Array).isRequired,
+  children: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default ItemList;
