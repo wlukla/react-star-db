@@ -20,7 +20,7 @@ const propTypes = {
   itemId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
   getData: PropTypes.func.isRequired,
   getImageURL: PropTypes.func.isRequired,
 };
@@ -33,5 +33,9 @@ const mapMethodsToProps = (swapiService) => (
 );
 
 PlanetDetails.propTypes = propTypes;
+
+PlanetDetails.defaultProps = {
+  itemId: null,
+};
 
 export default withSwapiService(PlanetDetails, mapMethodsToProps);

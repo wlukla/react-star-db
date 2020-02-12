@@ -77,13 +77,17 @@ ItemDetails.propTypes = {
   itemId: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
-  ]).isRequired,
+  ]),
   getData: PropTypes.func.isRequired,
   getImageURL: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
+};
+
+ItemDetails.defaultProps = {
+  itemId: null,
 };
 
 export default ItemDetails;

@@ -14,7 +14,11 @@ const Record = (props) => {
 Record.propTypes = {
   field: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  item: PropTypes.instanceOf(Object).isRequired,
+  item: PropTypes.instanceOf(Object),
+};
+
+Record.defaultProps = {
+  item: null,
 };
 
 export default Record;

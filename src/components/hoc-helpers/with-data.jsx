@@ -3,17 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from '../loader/loader';
 
-const withData = (View) => (
-  class extends React.Component {
+const withData = (View) => {
+  class WithData extends React.Component {
     constructor(props) {
       super(props);
 
       this.state = {
         data: null,
-      };
-
-      this.propTypes = {
-        getData: PropTypes.func.isRequired,
       };
     }
 
@@ -33,6 +29,12 @@ const withData = (View) => (
       return <View {...this.props} data={data} />;
     }
   }
-);
+
+  WithData.propTypes = {
+    getData: PropTypes.func.isRequired,
+  };
+
+  return WithData;
+};
 
 export default withData;

@@ -33,7 +33,7 @@ const ItemList = (props) => {
 ItemList.propTypes = {
   data: PropTypes.instanceOf(Object).isRequired,
   onItemSelected: PropTypes.func.isRequired,
-  children: PropTypes.instanceOf(Array).isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export default ItemList;

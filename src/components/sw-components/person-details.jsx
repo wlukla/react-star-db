@@ -23,11 +23,15 @@ const mapMethodsToProps = (swapiService) => (
   }
 );
 
+PersonDetails.defaultProps = {
+  itemId: null,
+};
+
 const propTypes = {
   itemId: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
   getData: PropTypes.func.isRequired,
   getImageURL: PropTypes.func.isRequired,
 };
