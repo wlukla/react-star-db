@@ -6,17 +6,29 @@ import SwapiService from '../../services/swapi-service';
 import RandomPlanet from '../random-planet';
 
 import { SwapiServiceProvider } from '../swapi-service-context';
-import { PeoplePage, StarshipsPage, PlanetsPage } from '../pages';
+import {
+  PeoplePage, StarshipsPage, PlanetsPage, SecretPage, LoginPage,
+} from '../pages';
 import { StarshipDetails } from '../sw-components';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.swapiService = new SwapiService();
-    this.state = {};
+    this.state = {
+      isLoggedIn: false,
+    };
+
+    this.onLogIn = this.onLogIn.bind(this);
+  }
+
+  onLogIn() {
+    this.setState({ isLoggedIn: true });
   }
 
   render() {
+    const { isLoggedIn } = this.state;
+
     return (
       <ErrorBoundary>
         <SwapiServiceProvider value={this.swapiService}>
@@ -31,7 +43,8 @@ class App extends React.Component {
                 render={() => <h2>Welcome to StarDB</h2>}
                 exact
               />
-              <Route path="/people" component={PeoplePage} />
+              <Route path="/people" render={() => <h2>People</h2>} exact />
+              <Route path="/people/:id?" component={PeoplePage} />
               <Route path="/planets" component={PlanetsPage} />
               <Route path="/starships" component={StarshipsPage} exact />
               <Route
@@ -40,6 +53,24 @@ class App extends React.Component {
                   const { id } = match.params;
                   return <StarshipDetails itemId={id} />;
                 }}
+              />
+
+              <Route
+                path="/secret"
+                render={() => (
+                  <SecretPage
+                    isLoggedIn={isLoggedIn}
+                  />
+                )}
+              />
+              <Route
+                path="/login"
+                render={() => (
+                  <LoginPage
+                    isLoggedIn={isLoggedIn}
+                    onLogIn={this.onLogIn}
+                  />
+                )}
               />
 
             </div>
