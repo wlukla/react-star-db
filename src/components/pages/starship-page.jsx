@@ -2,7 +2,7 @@ import React from 'react';
 import Row from '../row';
 import { StarshipList, StarshipDetails } from '../sw-components';
 
-class StarshipPage extends React.Component {
+class StarshipsPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,4 +28,4 @@ class StarshipPage extends React.Component {
   }
 }
 
-export default StarshipPage;
+export default StarshipsPage;

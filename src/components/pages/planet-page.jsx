@@ -2,7 +2,7 @@ import React from 'react';
 import Row from '../row';
 import { PlanetList, PlanetDetails } from '../sw-components';
 
-class PlanetPage extends React.Component {
+class PlanetsPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,4 +28,4 @@ class PlanetPage extends React.Component {
   }
 }
 
-export default PlanetPage;
+export default PlanetsPage;
