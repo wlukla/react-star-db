@@ -38,4 +38,4 @@ const propTypes = {
 
 PersonDetails.propTypes = propTypes;
 
-export default withSwapiService(PersonDetails, mapMethodsToProps);
+export default withSwapiService(mapMethodsToProps)(PersonDetails);
